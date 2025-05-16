@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -40,13 +41,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(height: 20),
-          Text("$nome, $dataHora, $valor")
-        ],
-      ),
+    return StreamBuilder(
+      stream: stream,
+      builder: builder
     );
+
   }
 }

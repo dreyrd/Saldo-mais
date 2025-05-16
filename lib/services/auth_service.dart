@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:financias/home.dart';
+import 'package:financias/menu_bar.dart';
 import 'package:financias/login.dart';
 
 
@@ -64,7 +64,7 @@ class AuthService {
 
       Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => HomePage())
+          MaterialPageRoute(builder: (BuildContext context) => Menu())
       );
     }
     on FirebaseAuthException catch (e) {

@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
 
           children: [
             Text(
-              "S+",
+              "Saldo+",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 50,
