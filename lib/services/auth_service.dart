@@ -1,11 +1,26 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:financias/menu_bar.dart';
 import 'package:financias/login.dart';
 
 
 class AuthService {
+
+
+  String getUserUid(){
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    String uid = "";
+
+    if(currentUser != null){
+      uid = currentUser.uid;
+    }
+
+    return uid;
+
+  }
 
 
   Future<void> signup({required String email, required String password, required BuildContext context}) async {
@@ -59,6 +74,8 @@ class AuthService {
           email: email,
           password: password
       );
+
+
 
       await Future.delayed(const Duration(milliseconds: 100));
 
