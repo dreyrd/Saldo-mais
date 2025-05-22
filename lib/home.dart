@@ -20,28 +20,28 @@ class _HomePageState extends State<HomePage> {
 
   var uid = "";
   double rendaMensal = 1790.00;
-  double gastosFixosTotal = 0.00;
-  double gastosMesTotal = 0.00;
-  double ganhosTotais = 0.0;
-
-
-  void somarGastosFixos(double valor){
-    setState(() {
-      gastosFixosTotal += valor;
-    });
-  }
-
-  void somarGastosMes(double valor){
-    setState(() {
-      gastosMesTotal += valor;
-    });
-  }
-
-  void somarGanhosMes(double valor){
-    setState(() {
-      ganhosTotais += valor;
-    });
-  }
+  // double gastosFixosTotal = 0.00;
+  // double gastosMesTotal = 0.00;
+  // double ganhosTotais = 0.0;
+  //
+  //
+  // void somarGastosFixos(double valor){
+  //   setState(() {
+  //     gastosFixosTotal += valor;
+  //   });
+  // }
+  //
+  // void somarGastosMes(double valor){
+  //   setState(() {
+  //     gastosMesTotal += valor;
+  //   });
+  // }
+  //
+  // void somarGanhosMes(double valor){
+  //   setState(() {
+  //     ganhosTotais += valor;
+  //   });
+  // }
 
   void getUid(){
 
@@ -88,32 +88,45 @@ class _HomePageState extends State<HomePage> {
                   }
                   var dataList = snapshots.data!.docs;
 
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: dataList.length,
-                      itemBuilder: (context, index){
-                        var data = dataList[index].data() as Map<String, dynamic>;
+                  double total = dataList.fold(0.0, (prev, doc){
+                    var data = doc.data() as Map<String, dynamic>;
+                    var valor = (data['valor'] as num).toDouble();
+                    return prev + valor;
+                  });
 
-                        var nome = data['nome'];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: dataList.length,
+                        itemBuilder: (context, index){
+                          var data = dataList[index].data() as Map<String, dynamic>;
 
-                        var dataHora = (data['data'] as Timestamp).toDate();
-                        var dataCompra = DateFormat('dd/MM/yyyy').format(dataHora);
+                          var nome = data['nome'];
 
-                        var valor = data['valor'];
-                        somarGastosFixos(valor);
+                          var dataHora = (data['data'] as Timestamp).toDate();
+                          var dataCompra = DateFormat('dd/MM/yyyy').format(dataHora);
 
-                        return Row(
-                          children: [
-                            Text(nome.toString()),
-                            SizedBox(width: 10),
-                            Text(dataCompra.toString()),
-                            SizedBox(width: 10),
-                            Text(valor.toString()),
-                          ],
-                        );
+                          var valor = data['valor'];
 
-                      }
+                          return Row(
+                            children: [
+                              Text(nome.toString()),
+                              SizedBox(width: 10),
+                              Text(dataCompra.toString()),
+                              SizedBox(width: 10),
+                              Text(valor.toString()),
+                            ],
+                          );
+
+                        }
+                      ),
+
+                      Text("Total: $total")
+
+                    ],
                   );
                 }
             ),
@@ -139,33 +152,48 @@ class _HomePageState extends State<HomePage> {
                   return Text('Adicione um gasto do mês para aparecer aqui');
                 }
                 var dataList = snapshots.data!.docs;
+
+                double total = dataList.fold(0.0, (prev, doc){
+                  var data = doc.data() as Map<String, dynamic>;
+                  var valor = (data['valor'] as num).toDouble();
+                  return prev + valor;
+                });
       
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: dataList.length,
-                  itemBuilder: (context, index){
-                    var data = dataList[index].data() as Map<String, dynamic>;
-      
-                    var nome = data['nome'];
-      
-                    var dataHora = (data['data'] as Timestamp).toDate();
-                    var dataCompra = DateFormat('dd/MM/yyyy').format(dataHora);
-      
-                    var valor = data['valor'];
-                    somarGastosMes(valor);
-      
-                    return Row(
-                      children: [
-                        Text(nome.toString()),
-                        SizedBox(width: 10),
-                        Text(dataCompra.toString()),
-                        SizedBox(width: 10),
-                        Text(valor.toString()),
-                      ],
-                    );
-      
-                  }
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+
+
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: dataList.length,
+                      itemBuilder: (context, index){
+                        var data = dataList[index].data() as Map<String, dynamic>;
+
+                        var nome = data['nome'];
+
+                        var dataHora = (data['data'] as Timestamp).toDate();
+                        var dataCompra = DateFormat('dd/MM/yyyy').format(dataHora);
+
+                        var valor = data['valor'];
+
+                        return Row(
+                          children: [
+                            Text(nome.toString()),
+                            SizedBox(width: 10),
+                            Text(dataCompra.toString()),
+                            SizedBox(width: 10),
+                            Text(valor.toString()),
+                          ],
+                        );
+
+                      }
+                    ),
+
+                    Text("Total: $total"),
+
+                  ],
                 );
               }
             ),
@@ -192,60 +220,75 @@ class _HomePageState extends State<HomePage> {
                   }
                   var dataList = snapshots.data!.docs;
 
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: dataList.length,
-                      itemBuilder: (context, index){
-                        var data = dataList[index].data() as Map<String, dynamic>;
+                  double total = dataList.fold(0.0, (prev, doc){
+                    var data = doc.data() as Map<String, dynamic>;
+                    var valor = (data['valor'] as num).toDouble();
+                    return prev + valor;
+                  });
 
-                        var nome = data['nome'];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                        var dataHora = (data['data'] as Timestamp).toDate();
-                        var dataCompra = DateFormat('dd/MM/yyyy').format(dataHora);
 
-                        var valor = data['valor'];
-                        somarGanhosMes(valor);
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: dataList.length,
+                        itemBuilder: (context, index){
+                          var data = dataList[index].data() as Map<String, dynamic>;
 
-                        return Row(
-                          children: [
-                            Text(nome.toString()),
-                            SizedBox(width: 10),
-                            Text(dataCompra.toString()),
-                            SizedBox(width: 10),
-                            Text(valor.toString()),
-                          ],
-                        );
+                          var nome = data['nome'];
 
-                      }
+                          var dataHora = (data['data'] as Timestamp).toDate();
+                          var dataCompra = DateFormat('dd/MM/yyyy').format(dataHora);
+
+                          var valor = data['valor'];
+
+                          return Row(
+                            children: [
+                              Text(nome.toString()),
+                              SizedBox(width: 10),
+                              Text(dataCompra.toString()),
+                              SizedBox(width: 10),
+                              Text(valor.toString()),
+                            ],
+                          );
+
+                        }
+                      ),
+
+                      Text("Total: $total"),
+
+                    ],
                   );
                 }
             ),
             SizedBox(height: 20),
 
-
-            Text("Total mensal"),
-            Row(
-              children: [
-                Text(rendaMensal.toString()),
-                SizedBox(width: 5),
-                Text("-"),
-                SizedBox(width: 5),
-                Text(gastosFixosTotal.toString()),
-                SizedBox(width: 5),
-                Text("-"),
-                SizedBox(width: 5),
-                Text(gastosMesTotal.toString()),
-                SizedBox(width: 5),
-                Text("+"),
-                SizedBox(width: 5),
-                Text(ganhosTotais.toString()),
-                SizedBox(width: 5),
-                Text("="),
-                SizedBox(width: 5),
-                Text((rendaMensal - gastosFixosTotal - gastosMesTotal + ganhosTotais).toString()),
-              ],
-            ),
+            //
+            // Text("Total mensal"),
+            // Row(
+            //   children: [
+            //     Text(rendaMensal.toString()),
+            //     SizedBox(width: 5),
+            //     Text("-"),
+            //     SizedBox(width: 5),
+            //     Text(gastosFixosTotal.toString()),
+            //     SizedBox(width: 5),
+            //     Text("-"),
+            //     SizedBox(width: 5),
+            //     Text(gastosMesTotal.toString()),
+            //     SizedBox(width: 5),
+            //     Text("+"),
+            //     SizedBox(width: 5),
+            //     Text(ganhosTotais.toString()),
+            //     SizedBox(width: 5),
+            //     Text("="),
+            //     SizedBox(width: 5),
+            //     Text((rendaMensal - gastosFixosTotal - gastosMesTotal + ganhosTotais).toString()),
+            //   ],
+            // ),
 
 
           ],
