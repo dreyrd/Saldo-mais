@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
 import 'conta.dart';
+import 'cadastro.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
@@ -14,6 +15,7 @@ class _MenuState extends State<Menu> {
 
   static List<Widget> pages = <Widget>[
     HomePage(),
+    CadastroPage(),
     ContaPage()
   ];
 
@@ -43,6 +45,10 @@ class _MenuState extends State<Menu> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add_circle),
+                label: 'Adicionar',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.people),
