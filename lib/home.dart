@@ -22,10 +22,10 @@ class _HomePageState extends State<HomePage> {
   var uid = "";
   double rendaMensal = 1790.00;
 
-  void abrirDetalhes(){
+  void abrirDetalhes(id_item, item){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => DetalhesPage())
+      MaterialPageRoute(builder: (context) => DetalhesPage(id_item: id_item, item: item))
     );
   }
 
@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: dataList.length,
                       itemBuilder: (context, index){
+                        var id = dataList[index].id;
                         var data = dataList[index].data() as Map<String, dynamic>;
 
                         var nome = data['nome'];
@@ -100,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                         var valor = data['valor'];
 
                         return ElevatedButton(
-                          onPressed: abrirDetalhes,
+                          onPressed: () => abrirDetalhes(id, data),
                           child: Row(
                             children: [
                               Text(nome.toString()),
@@ -160,6 +161,7 @@ class _HomePageState extends State<HomePage> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: dataList.length,
                       itemBuilder: (context, index){
+                        var id = dataList[index].id;
                         var data = dataList[index].data() as Map<String, dynamic>;
 
                         var nome = data['nome'];
@@ -169,14 +171,17 @@ class _HomePageState extends State<HomePage> {
 
                         var valor = data['valor'];
 
-                        return Row(
-                          children: [
-                            Text(nome.toString()),
-                            SizedBox(width: 10),
-                            Text(dataCompra.toString()),
-                            SizedBox(width: 10),
-                            Text(valor.toString()),
-                          ],
+                        return ElevatedButton(
+                          onPressed: () => abrirDetalhes(id, data),
+                          child: Row(
+                            children: [
+                              Text(nome.toString()),
+                              SizedBox(width: 10),
+                              Text(dataCompra.toString()),
+                              SizedBox(width: 10),
+                              Text(valor.toString()),
+                            ],
+                          )
                         );
 
                       }
@@ -229,6 +234,7 @@ class _HomePageState extends State<HomePage> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: dataList.length,
                       itemBuilder: (context, index){
+                        var id = dataList[index].id;
                         var data = dataList[index].data() as Map<String, dynamic>;
 
                         var nome = data['nome'];
@@ -238,14 +244,17 @@ class _HomePageState extends State<HomePage> {
 
                         var valor = data['valor'];
 
-                        return Row(
-                          children: [
-                            Text(nome.toString()),
-                            SizedBox(width: 10),
-                            Text(dataCompra.toString()),
-                            SizedBox(width: 10),
-                            Text(valor.toString()),
-                          ],
+                        return ElevatedButton(
+                          onPressed: () => abrirDetalhes(id, data),
+                          child: Row(
+                            children: [
+                              Text(nome.toString()),
+                              SizedBox(width: 10),
+                              Text(dataCompra.toString()),
+                              SizedBox(width: 10),
+                              Text(valor.toString()),
+                            ],
+                          )
                         );
 
                       }
